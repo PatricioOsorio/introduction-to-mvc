@@ -15,13 +15,13 @@ class VehiculosController
     require_once "view/vehiculos_view.php";
   }
 
-  public function nuevo()
+  public function new()
   {
     $data["titulo"] = "Vehiculos";
     require_once "view/vehiculos/vehiculos_nuevo.php";
   }
 
-  public function Save()
+  public function save()
   {
     $placa = $_POST['placa'];
     $marca = $_POST['marca'];
@@ -30,5 +30,17 @@ class VehiculosController
     $color = $_POST['color'];
 
     $vehiculos = new VehiculosModel();
+    $vehiculos->insert($placa, $marca, $modelo, $anio, $color);
+    $data["Titulo"] = "Vehiculos";
+    $this->index();
   }
-}
+  
+  public function update()
+  {
+    $vehiculos = new VehiculosModel();
+
+    $data["id"] = $id;
+    $data["vehiculos"] = $vehiculos->getVehiculos($id);
+    $data["Titulo"] = "Vehiculos";
+    // require_once "view/vehiculos/vehiculos_nuevo.php";
+  }
